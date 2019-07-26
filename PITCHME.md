@@ -24,7 +24,7 @@ Hidetsugu TAKAHASHI a.k.a manzyun
 + しがない放浪（派遣）プログラマ
 + C♯, VB.net, PHP, Python, JavaScript, Go とか
 + 2019年にもなって、作れるWebページは2000年代なデザイン
-+ CoderDojoの駄メンター
++ [CoderDojo](https://coderdojo.jp)の駄メンター
 
 インターネッツでは「まんじゅ（́ん｀）」というふざけた名前で出没。
 
@@ -180,7 +180,6 @@ PS C:\Users\User\Documents> Get-Content my_knowleadge.md
 + `| Where`: 左のオブジェクトの結果のうちから、右の式に該当したものを、更に右の処理へ渡す
 + `| Sort`: 左のオブジェクトの結果を、右の引数を基準に整列する。
 + `| Group`: 左のオブジェクトの結果から、右の引数を基準にして集計し、まとめる。
-+ `| Select`: 左のオブジェクトの結果から、右の式に該当したものを出力。
 
 ---
 
@@ -232,10 +231,10 @@ d-----       2019/04/26     18:14                Visual Studio 2008
 
 ```powershell
 $stock_data = Import-Csv .\stock.csv -Encoding Default
-$stock_data | Sort-Object "残り在庫"
+$stock_data | Sort "残り在庫"
 
 # もしくは以下も可能
-Import-Csv .\stock.csv -Encoding Default | Sort-Object "残り在庫"
+Import-Csv .\stock.csv -Encoding Default | Sort "残り在庫"
 ```
 
 ---
@@ -252,7 +251,8 @@ Import-Csv .\stock.csv -Encoding Default | Sort-Object "残り在庫"
 制作にかけた時間、4時間。短縮された業務時間、24時間以上。
 
 ```powershell
-[xml](Get-Content packets.xml).base64 | % {[System.Text.Encoding]::Default.Getstring(System.Convert]::FromBase54String($_)}
+[xml](Get-Content packets.xml).base64 |
+Foreach {[System.Text.Encoding]::Default.Getstring(System.Convert]::FromBase54String($_)}
 ```
 
 ---
