@@ -107,11 +107,108 @@ Hidetsugu TAKAHASHI a.k.a manzyun
 
 ### PowerShellの基本的な使い方
 
++ 一番大事なヘルプの見方
++ フォルダ移動の方法
++ パイプライン処理
++ タブキー
+
 ---
 
-# Demoる？
+#### 一番大事なヘルプの見方
 
-使い方に関してはインターネッツでも上質な情報が出回っていますし。
++ `Get-Help`: ヘルプを見る
++ `Get-Help <コマンド>`: コマンドのヘルプを見る
+
+---
+
+#### フォルダ移動の方法
+
++ `Get-ChildItem`: 今いるフォルダの内容の問い合わせ
++ `Get-Location` : 今いるフォルダの問い合わせ
++ `Set-Location`: フォルダ移動
+  + `\` でフォルダ区切り
+  + `.\` 今いるフォルダへ
+  + `..\` 一つ上のフォルダへ
++ `Get-Content`: ファイルの中身を問い合わせ
+
+---
+
+#### フォルダ移動の例
+
+```powershell
+PS C:\Users\User> Get-Location
+
+Path
+----
+C:\Users\User
+
+PS C:\Users\User> Get-ChildItem
+
+Mode                LastWriteTime         Length Name
+----                -------------         ------ ----
+d-----       2019/07/22     15:23                .atom
+d-----       2019/07/05      9:41                .config
+
+            :
+            :
+            :
+```
+
+---
+
+#### フォルダ移動の例
+
+```powershell
+PS C:\Users\User> Set-Location Documents
+PS C:\Users\User> Get-ChildItem
+
+# ...フォルダ内容問い合わせ結果、略...
+
+PS C:\Users\User\Documents> Get-Content my_knowleadge.md
+
+# ...ファイル内容問い合わせ結果、略...
+```
+
+---
+
+### パイプライン処理
+
+データのバケツリレー
+
++ `|`: 単純に左から右へ
++ `| ForEach`: 左のオブジェクトの結果の一つ一つに対して右の処理を行う
++ `| Where`: 左のオブジェクトの結果のうちから、右の式に該当したものを、更に右の処理へ渡す
++ `| Sort`: 左のオブジェクトの結果を、右の引数を基準に整列する。
++ `| Group`: 左のオブジェクトの結果から、右の引数を基準にして集計し、まとめる。
++ `| Select`: 左のオブジェクトの結果から、右の式に該当したものを出力。
+
+---
+
+#### パイプライン処理の例
+
+あるフォルダの中で、`Visual Studio` が頭に付くフォルダやファイルを取得し、名前の降順で並べる。
+
+```powershell
+Get-ChildItem | 
+Where { $_.Name -like "Visual Studio*" } |
+Sort -Property Name -Descending
+```
+
+---
+
+#### パイプライン処理の例
+
+```powershell
+
+# ...結果前略
+
+Mode                LastWriteTime         Length Name
+----                -------------         ------ ----
+d-----       2019/07/23     11:05                Visual Studio 2015
+d-----       2019/06/13      9:49                Visual Studio 2013
+d-----       2019/06/25     13:57                Visual Studio 2010
+d-----       2019/04/26     18:14                Visual Studio 2008
+```
 
 ---
 
@@ -165,6 +262,15 @@ Import-Csv .\stock.csv -Encoding Default | Sort-Object "残り在庫"
 + 2019年ですが……。
   + CLIの力は素晴らしいぞ！
 + PowerShellの感覚がLINQにも活かせる？
++ 知って使えて損はない。
++ みんなも爪楊枝未満ツールをいっぱい作ろう
+
+---
+
+### 参考資料
+
++ [PowerShell スクリプティング - Microsoft](https://docs.microsoft.com/ja-jp/powershell/scripting/overview)
++ [PowerShellの演算子一覧 - しばたテックブログ](https://blog.shibata.tech/entry/2015/12/03/000000)
 
 ---
 
