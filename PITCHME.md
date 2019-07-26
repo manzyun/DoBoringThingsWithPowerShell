@@ -105,4 +105,70 @@ Hidetsugu TAKAHASHI a.k.a manzyun
 
 ---
 
+### PowerShellの基本的な使い方
+
+---
+
+# Demoる？
+
+使い方に関してはインターネッツでも上質な情報が出回っていますし。
+
+---
+
 ### PowerShellのあんな使い方、こんな使い方
+
++ 割と普通と思われる使い方
++ 昔の業務でやったやつに似たやつ
++ 手前味噌の業務中に作ったやつに似たやつ
+
+---
+
+### 割と普通と思われる使い方
+
+商品の在庫状況を書いた、列名を書いた行も入っているShift-JISエンコードのCSVファイル `stock.csv` があるが、中身は整列されていない。
+
+このCSVファイルの内容を、在庫の少ないものから上から順番（昇順）に並べたい。
+
+---
+
+#### 割と普通と思われる使い方
+
+```powershell
+$stock_data = Import-Csv .\stock.csv -Encoding Default
+$stock_data | Sort-Object "残り在庫"
+
+# もしくは以下も可能
+Import-Csv .\stock.csv -Encoding Default | Sort-Object "残り在庫"
+```
+
+---
+
+### 手前味噌の業務中に作ったやつに似たやつ
+
+`packets.xml` というXMLファイルの中に、`packets` をルート要素とし、 `base64` という要素がいくつかある。この要素の中身をデシリアライズする。
+（一部要求をぼかしています）
+
+---
+
+#### 手前味噌の業務中に作ったやつに似たやつ
+
+制作にかけた時間、4時間。短縮された業務時間、24時間以上。
+
+```powershell
+[xml](Get-Content packets.xml).base64 | % {[System.Text.Encoding]::Default.Getstring(System.Convert]::FromBase54String($_)}
+```
+
+---
+
+### 言いたかったこと
+
++ 2019年ですが……。
+  + CLIの力は素晴らしいぞ！
++ PowerShellの感覚がLINQにも活かせる？
+
+---
+
+### Thank's for listening
+
++ このスライドは[Git Pitch](https://gitpitch.com/)で作成しました。
++ 再配布は [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/deed.ja)に基づいて許可いたします。
